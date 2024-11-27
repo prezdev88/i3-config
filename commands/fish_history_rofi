@@ -1,0 +1,12 @@
+#!/usr/bin/env fish
+
+# Obtén el historial ordenado desde el más reciente al más antiguo y muestra el menú con Rofi
+set cmd (tac ~/.local/share/fish/fish_history | grep "^- cmd: " | sed "s/^- cmd: //" | rofi -dmenu -p "History")
+
+# Verifica que el usuario seleccionó un comando
+if test -n "$cmd"
+    # Copia el comando seleccionado al portapapeles
+    echo "$cmd" | xclip -selection clipboard
+    # Notifica al usuario
+    notify-send "Comando copiado al portapapeles" "$cmd"
+end

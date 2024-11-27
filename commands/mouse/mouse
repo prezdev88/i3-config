@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Abre un terminal y ejecuta el JAR
+i3-sensible-terminal -e "bash -c 'java -jar ~/.config/i3/commands/mouse/mouse.jar'"

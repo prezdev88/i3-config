@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Lista de dispositivos de audio disponibles
+audio_devices=$(pacmd list-sinks | awk '/index:/{print $NF}')
+
+# Archivo para almacenar el nombre del último dispositivo utilizado
+device_file="$HOME/.last_audio_device_name"
+
+# Si el archivo de dispositivo no existe, lo crea con el primer dispositivo de la lista
+if [ ! -f "$device_file" ]; then
+    echo "$audio_devices" | head -n 1 > "$device_file"
+fi
+
+# Lee el nombre del último dispositivo utilizado
+last_device=$(cat "$device_file")
+
+# Encuentra el nombre del siguiente dispositivo
+next_device=""
+found_next=false
+for device in $audio_devices; do
+    if [ "$found_next" = true ]; then
+        next_device="$device"
+        break
+    fi
+    if [ "$device" = "$last_device" ]; then
+        found_next=true
+    fi
+done
+
+# Si no se encontró el siguiente dispositivo, el próximo será el primero de la lista
+if [ -z "$next_device" ]; then
+    next_device=$(echo "$audio_devices" | head -n 1)
+fi
+
+# Establece el siguiente dispositivo como el dispositivo de salida predeterminado
+pacmd set-default-sink "$next_device"
+
+# Guarda el nombre del nuevo dispositivo en el archivo de dispositivo
+echo "$next_device" > "$device_file"
+
+device_name=$(pacmd list-sinks | awk -v idx="$next_device" '/index:/{f=0} f; /index: '"$next_device"'/{f=1}' | awk -F'=' '/device.description/{print $2}' | tr -d '"' | xargs)
+
+# Notifica el cambio de audio
+notify-send "Audio" "$device_name"
+
+# Imprime un mensaje en la terminal
+echo "Dispositivo cambiado a: $device_name"

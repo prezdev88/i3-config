@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Lista de dispositivos de audio disponibles
+audio_devices=$(pacmd list-sinks | awk '/index:/{print $NF}')
+device_names=$(pacmd list-sinks | awk -F'=' '/device.description/{print $2}' | tr -d '"' | xargs -L1)
+
+# Crea un menú para seleccionar el dispositivo con Rofi
+selected_device=$(paste <(echo "$audio_devices") <(echo "$device_names") | awk '{print $1 " - " $2}' | rofi -dmenu -p "Selecciona dispositivo de audio:")
+
+# Si no se selecciona nada, salir
+if [ -z "$selected_device" ]; then
+    notify-send "Audio" "No se seleccionó ningún dispositivo."
+    exit 0
+fi
+
+# Extraer el índice del dispositivo seleccionado
+selected_index=$(echo "$selected_device" | awk '{print $1}')
+
+# Establece el dispositivo como el dispositivo de salida predeterminado
+pacmd set-default-sink "$selected_index"
+
+# Notifica el cambio de audio
+device_name=$(echo "$selected_device" | awk -F' - ' '{print $2}')
+notify-send "Audio" "Dispositivo cambiado a: $device_name"
+
+# Imprime un mensaje en la terminal
+echo "Dispositivo cambiado a: $device_name"

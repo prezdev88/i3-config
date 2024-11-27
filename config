@@ -11,6 +11,7 @@
 
 set $mod Mod4
 set $alt Mod1
+set $commands ~/.config/i3/commands
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -245,27 +246,24 @@ gaps inner 10
 smart_gaps on
 for_window [class=".*"] border pixel 4
 
-bindsym $mod+i exec search-projects
+bindsym $mod+i exec $commands/search-projects
 bindsym $mod+n exec mousepad
 bindsym $mod+F1 exec chromium
 bindsym $mod+F2 exec discord
-bindsym $mod+F3 exec ytmusic
-bindsym $mod+F4 exec youtube
+bindsym $mod+F3 exec $commands/ytmusic
+bindsym $mod+F4 exec $commands/youtube
 bindsym $mod+F5 exec thunar
 bindsym $mod+F6 exec chromium --app=https://devdocs.io/
-bindsym $mod+F12 exec aswitch2
+bindsym $mod+F12 exec $commands/aswitch2
+bindsym $mod+Shift+F12 exec $commands/aswitch3
 bindsym $mod+Escape kill
-bindsym $mod+Shift+q kill
-bindsym $mod+g exec gptchat
+bindsym $mod+g exec $commands/gptchat
 bindsym $mod+Shift+p exec poweroff
 bindsym $mod+$alt+Shift+p exec reboot
 bindsym Print exec flameshot gui
 bindsym $mod+plus exec kmag
-bindsym $mod+Shift+f exec search
 bindsym $mod+b exec blueman-manager
-bindsym $mod+t exec chromium --app=https://www.twitch.tv/chilevisioncl
-bindsym $mod+m exec --no-startup-id bash -c 'i3-sensible-terminal -e "java -jar /home/prezdev/git-projects/mouse-movement/target/mouse-movement-1.0-SNAPSHOT.jar"'
-# bindsym $mod+Shift+s sticky toggle
+bindsym $mod+m exec --no-startup-id $commands/mouse/mouse
 
 # Volume
 bindsym $mod+apostrophe exec pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -274,6 +272,15 @@ bindsym $mod+exclamdown exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 # Abrir terminal en /home/prezdev/git-projects/kube-commands con Win+k
 # OJO: tuve que eliminar el binding +k
 bindsym $mod+k exec --no-startup-id xfce4-terminal --working-directory=/home/prezdev/git-projects/kube-commands
+
+# Matar un proceso
+bindsym $mod+Delete exec $commands/kill
+
+# "dmenu" mejorado
+bindsym $mod+Shift+d exec $commands/drun
+
+# Historial (fish)
+bindsym $mod+Shift+h exec $commands/fish_history_rofi
 
 exec --no-startup-id i3-msg 'workspace 2; exec slack'
 exec --no-startup-id i3-msg 'workspace 2; exec google-chrome-stable'
