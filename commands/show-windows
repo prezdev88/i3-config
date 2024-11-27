@@ -1,0 +1,1 @@
+rofi -show window -show-icons -font "Monospace 16" -theme ~/.config/i3/theme/custom-icon-theme.rasi

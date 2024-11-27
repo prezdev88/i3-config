@@ -263,7 +263,8 @@ bindsym $mod+$alt+Shift+p exec reboot
 bindsym Print exec flameshot gui
 bindsym $mod+plus exec kmag
 bindsym $mod+b exec blueman-manager
-bindsym $mod+m exec --no-startup-id $commands/mouse/mouse
+bindsym $mod+m exec --no-startup-id $commands/keypress/run
+bindsym $mod+Tab exec $commands/show-windows
 
 # Volume
 bindsym $mod+apostrophe exec pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -280,7 +281,10 @@ bindsym $mod+Delete exec $commands/kill
 bindsym $mod+Shift+d exec $commands/drun
 
 # Historial (fish)
-bindsym $mod+Shift+h exec $commands/fish_history_rofi
+bindsym $mod+Shift+h exec $commands/fish-history
+
+bindsym Scroll_Lock exec $commands/lock
+bindsym $mod+l exec $commands/lock
 
 exec --no-startup-id i3-msg 'workspace 2; exec slack'
 exec --no-startup-id i3-msg 'workspace 2; exec google-chrome-stable'
@@ -294,7 +298,7 @@ exec --no-startup-id dunst
 exec --no-startup-id picom
 exec --no-startup-id xscreensaver --no-splash
 exec --no-startup-id blueman-applet
-# exec --no-startup-id qps
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
@@ -303,8 +307,6 @@ client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
-
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # gdu = espacio en disco
 # qps = monitoreo

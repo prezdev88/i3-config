@@ -1,1 +1,1 @@
-rofi -show drun -show-icons
+rofi -show drun -show-icons -theme ~/.config/i3/theme/drun-theme.rasi
