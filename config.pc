@@ -11,6 +11,7 @@
 
 set $mod Mod4
 set $alt Mod1
+set $commands ~/.config/i3/commands
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -37,8 +38,8 @@ exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
@@ -50,7 +51,10 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+
+# kill focused window
+# bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run
@@ -59,12 +63,6 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
-
-# change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+ntilde focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -181,66 +179,115 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+# Pantalla principal
 bar {
-        font pango: Dejavu Sans Mono, FontAwesome 9
-        i3bar_command i3bar --transparency
-        # status_command i3status
-        status_command ~/.config/bumblebee-status/bumblebee-status \
-        -t greyish-powerline \
-        -m weather -p weather.location=talca \
-	-m kernel disk \
+	#font pango:DejaVu Sans Mono, FontAwesome 8
+	i3bar_command i3bar --transparency
+	# status_command i3status
+
+	# https://github.com/tobi-wan-kenobi/bumblebee-status
+	# https://bumblebee-status.readthedocs.io/en/main/modules.html
+	# yay -S python-netifaces iw --> network_traffic
+	# -t greyish-powerline
+	
+	status_command ~/.config/bumblebee-status/bumblebee-status \
+	-t greyish-powerline \
+	-m progress \
+	-m ping \
+	-m weather -p weather.location=talca \
+	-m disk \
 	-m memory \
+	-m date -p date.format='%a, %d %b %Y'\
+	-m time -p time.format='%H:%M'
+	
+	# position top
+	output DP-4
+	tray_output none
+	colors {
+		background #00000000
+		statusline #ffffff
+		separator #666666
+
+		focused_workspace #4c7899 #285577 #ffffff
+		active_workspace #333333 #5f676a #ffffff
+		inactive_workspace #333333 #222222 #888888
+		urgent_workspace #2f343a #900000 #ffffff
+		binding_mode #2f343a #900000 #ffffff
+	}
+}
+
+# Pantalla 3
+bar {
+	i3bar_command i3bar --transparency
+	# status_command i3status
+	status_command ~/.config/bumblebee-status/bumblebee-status \
+	-t nord-powerline \
+	-m kernel \
 	-m aur-update \
 	-m arch-update \
-	-m date -p date.format='%a, %d %b %Y' \
-	-m time -p time.format='%H:%M' \
-	-m battery
-	output eDP1
-        colors {
-                background #00000000
-                statusline #ffffff
-                separator #666666
+	-m redshift
+	output DP-1
+	colors {
+		background #00000000
+		statusline #ffffff
+		separator #666666
 
-                focused_workspace #4c7899 #285577 #ffffff
-                active_workspace #333333 #5f676a #ffffff
-                inactive_workspace #333333 #222222 #888888
-                urgent_workspace #2f343a #900000 #ffffff
-                binding_mode #2f343a #900000 #ffffff
-        }
+		focused_workspace #4c7899 #285577 #ffffff
+		active_workspace #333333 #5f676a #ffffff
+		inactive_workspace #333333 #222222 #888888
+		urgent_workspace #2f343a #900000 #ffffff
+		binding_mode #2f343a #900000 #ffffff
+	}
 }
+
+# Pantalla 4 DP-3
 
 gaps inner 10
 smart_gaps on
 for_window [class=".*"] border pixel 4
 
-bindsym $mod+i exec search-projects
+bindsym $mod+i exec $commands/search-projects
 bindsym $mod+n exec mousepad
 bindsym $mod+F1 exec chromium
 bindsym $mod+F2 exec discord
-bindsym $mod+F3 exec ytmusic
-bindsym $mod+F4 exec youtube
+bindsym $mod+F3 exec $commands/ytmusic
+bindsym $mod+F4 exec $commands/youtube
 bindsym $mod+F5 exec thunar
+bindsym $mod+F6 exec chromium --app=https://devdocs.io/
+bindsym $mod+F12 exec $commands/aswitch2
+bindsym $mod+Shift+F12 exec $commands/aswitch3
 bindsym $mod+Escape kill
-bindsym $mod+Shift+q kill
+bindsym $mod+g exec $commands/gptchat
 bindsym $mod+Shift+p exec poweroff
 bindsym $mod+$alt+Shift+p exec reboot
-bindsym $mod+x exec flameshot gui
 bindsym Print exec flameshot gui
-bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
-bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym $mod+plus exec kmag
-bindsym $mod+Shift+f exec search
-bindsym $mod+t exec battery-left
 bindsym $mod+b exec blueman-manager
-bindsym $mod+g exec gptchat
+bindsym $mod+m exec --no-startup-id $commands/keypress/run
+bindsym $mod+Tab exec $commands/show-windows
 
 # Volume
 bindsym $mod+apostrophe exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym $mod+exclamdown exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 
-exec --no-startup-id /usr/bin/octopi-notifier
+# Abrir terminal en /home/prezdev/git-projects/kube-commands con Win+k
+# OJO: tuve que eliminar el binding +k
+bindsym $mod+k exec --no-startup-id xfce4-terminal --working-directory=/home/prezdev/git-projects/kube-commands
+
+# Matar un proceso
+bindsym $mod+Delete exec $commands/kill
+
+# "dmenu" mejorado
+bindsym $mod+Shift+d exec $commands/drun
+
+# Historial (fish)
+bindsym $mod+Shift+h exec $commands/fish-history
+
+bindsym Scroll_Lock exec $commands/lock
+bindsym $mod+l exec $commands/lock
+
+exec --no-startup-id i3-msg 'workspace 2; exec slack'
+exec --no-startup-id i3-msg 'workspace 2; exec google-chrome-stable'
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id redshift
 exec --no-startup-id clipit
@@ -250,12 +297,17 @@ exec --no-startup-id udiskie --tray
 exec --no-startup-id dunst
 exec --no-startup-id picom
 exec --no-startup-id xscreensaver --no-splash
-exec --no-startup-id xinput set-prop "Synaptics TM3471-020" "libinput Natural Scrolling Enabled" 1
 exec --no-startup-id blueman-applet
-
-# gaps outer 1
-# gaps inner 5
-# smart_gaps on
-# for_window [class=".*"] border pixel 3
-
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+client.background       #ffffff
+
+# gdu = espacio en disco
+# qps = monitoreo
+# nitrogen = wallpapers app
