@@ -11,6 +11,7 @@
 
 set $mod Mod4
 set $alt Mod1
+set $commands ~/.config/i3/commands
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -184,61 +185,72 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        font pango: Dejavu Sans Mono, FontAwesome 9
-        i3bar_command i3bar --transparency
-        # status_command i3status
-        status_command ~/.config/bumblebee-status/bumblebee-status \
-        -t greyish-powerline \
-        -m weather -p weather.location=talca \
-	-m kernel disk \
-	-m memory \
-	-m aur-update \
-	-m arch-update \
-	-m date -p date.format='%a, %d %b %Y' \
-	-m time -p time.format='%H:%M' \
-	-m battery
+	font pango: Dejavu Sans Mono, FontAwesome 9
+	i3bar_command i3bar --transparency
+	# status_command i3status
+	status_command ~/.config/bumblebee-status/bumblebee-status \
+		-t greyish-powerline \
+		-m weather -p weather.location=talca \
+		-m kernel disk \
+		-m memory \
+		-m aur-update \
+		-m arch-update \
+		-m date -p date.format='%a, %d %b %Y' \
+		-m time -p time.format='%H:%M' \
+		-m battery
 	output eDP1
-        colors {
-                background #00000000
-                statusline #ffffff
-                separator #666666
+	colors {
+		background #00000000
+		statusline #ffffff
+		separator #666666
 
-                focused_workspace #4c7899 #285577 #ffffff
-                active_workspace #333333 #5f676a #ffffff
-                inactive_workspace #333333 #222222 #888888
-                urgent_workspace #2f343a #900000 #ffffff
-                binding_mode #2f343a #900000 #ffffff
-        }
+		focused_workspace #4c7899 #285577 #ffffff
+		active_workspace #333333 #5f676a #ffffff
+		inactive_workspace #333333 #222222 #888888
+		urgent_workspace #2f343a #900000 #ffffff
+		binding_mode #2f343a #900000 #ffffff
+	}
 }
 
 gaps inner 10
 smart_gaps on
 for_window [class=".*"] border pixel 4
 
-bindsym $mod+i exec search-projects
+bindsym $mod+i exec $commands/search-projects
 bindsym $mod+n exec mousepad
 bindsym $mod+F1 exec chromium
 bindsym $mod+F2 exec discord
-bindsym $mod+F3 exec ytmusic
-bindsym $mod+F4 exec youtube
+bindsym $mod+F3 exec $commands/ytmusic
+bindsym $mod+F4 exec $commands/youtube
 bindsym $mod+F5 exec thunar
 bindsym $mod+Escape kill
-bindsym $mod+Shift+q kill
 bindsym $mod+Shift+p exec poweroff
 bindsym $mod+$alt+Shift+p exec reboot
-bindsym $mod+x exec flameshot gui
 bindsym Print exec flameshot gui
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym $mod+plus exec kmag
-bindsym $mod+Shift+f exec search
 bindsym $mod+t exec battery-left
 bindsym $mod+b exec blueman-manager
-bindsym $mod+g exec gptchat
+bindsym $mod+g exec $commands/gptchat
+bindsym $mod+Tab exec $commands/show-windows
 
 # Volume
 bindsym $mod+apostrophe exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym $mod+exclamdown exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+# Matar un proceso
+bindsym $mod+Delete exec $commands/kill
+
+# "dmenu" mejorado
+bindsym $mod+Shift+d exec $commands/drun
+
+# Historial (fish)
+bindsym $mod+Shift+h exec $commands/fish-history
+
+# lock
+bindsym Scroll_Lock exec $commands/lock
+bindsym $mod+l exec $commands/lock
 
 exec --no-startup-id /usr/bin/octopi-notifier
 exec --no-startup-id nitrogen --restore
