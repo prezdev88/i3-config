@@ -179,69 +179,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Pantalla principal
-bar {
-	#font pango:DejaVu Sans Mono, FontAwesome 8
-	i3bar_command i3bar --transparency
-	# status_command i3status
-
-	# https://github.com/tobi-wan-kenobi/bumblebee-status
-	# https://bumblebee-status.readthedocs.io/en/main/modules.html
-	# yay -S python-netifaces iw --> network_traffic
-	# -t greyish-powerline
-	
-	status_command ~/.config/bumblebee-status/bumblebee-status \
-	-t greyish-powerline \
-	-m progress \
-	-m ping \
-	-m weather -p weather.location=talca \
-	-m disk \
-	-m memory \
-	-m date -p date.format='%a, %d %b %Y'\
-	-m time -p time.format='%H:%M'
-	
-	# position top
-	output DP-4
-	tray_output none
-	colors {
-		background #00000000
-		statusline #ffffff
-		separator #666666
-
-		focused_workspace #4c7899 #285577 #ffffff
-		active_workspace #333333 #5f676a #ffffff
-		inactive_workspace #333333 #222222 #888888
-		urgent_workspace #2f343a #900000 #ffffff
-		binding_mode #2f343a #900000 #ffffff
-	}
-}
-
-# Pantalla 3
-bar {
-	i3bar_command i3bar --transparency
-	# status_command i3status
-	status_command ~/.config/bumblebee-status/bumblebee-status \
-	-t nord-powerline \
-	-m kernel \
-	-m aur-update \
-	-m arch-update \
-	-m redshift
-	output DP-1
-	colors {
-		background #00000000
-		statusline #ffffff
-		separator #666666
-
-		focused_workspace #4c7899 #285577 #ffffff
-		active_workspace #333333 #5f676a #ffffff
-		inactive_workspace #333333 #222222 #888888
-		urgent_workspace #2f343a #900000 #ffffff
-		binding_mode #2f343a #900000 #ffffff
-	}
-}
-
-# Pantalla 4 DP-3
-
 gaps inner 10
 smart_gaps on
 for_window [class=".*"] border pixel 4
@@ -299,6 +236,7 @@ exec --no-startup-id picom
 exec --no-startup-id xscreensaver --no-splash
 exec --no-startup-id blueman-applet
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec_always ~/.config/polybar/launch.sh &
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
