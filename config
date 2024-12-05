@@ -197,7 +197,7 @@ bindsym Print exec flameshot gui
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym $mod+plus exec kmag
-bindsym $mod+t exec battery-left
+bindsym $mod+t exec $commands/battery-left
 bindsym $mod+b exec blueman-manager
 bindsym $mod+g exec $commands/gptchat
 bindsym $mod+Tab exec $commands/show-windows
