@@ -202,6 +202,7 @@ bindsym $mod+plus exec kmag
 bindsym $mod+b exec blueman-manager
 bindsym $mod+m exec --no-startup-id $commands/keypress/run
 bindsym $mod+Tab exec $commands/show-windows
+bindsym $mod+Shift+w exec google-chrome-stable --app=https://web.whatsapp.com/
 
 # Volume
 bindsym $mod+apostrophe exec pactl set-sink-volume @DEFAULT_SINK@ -5%
