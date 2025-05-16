@@ -187,7 +187,7 @@ bindsym $mod+i exec $commands/search-projects
 bindsym $mod+n exec mousepad
 bindsym $mod+F1 exec chromium
 bindsym $mod+F2 exec discord
-bindsym $mod+F3 exec $commands/ytmusic
+bindsym $mod+F3 exec youtube-music
 bindsym $mod+F4 exec $commands/youtube
 bindsym $mod+F5 exec thunar
 bindsym $mod+Escape kill
@@ -234,6 +234,7 @@ exec --no-startup-id picom
 exec --no-startup-id xscreensaver --no-splash
 exec --no-startup-id xinput set-prop "Synaptics TM3471-020" "libinput Natural Scrolling Enabled" 1
 exec --no-startup-id blueman-applet
+exec --no-startup-id streamdeck -n
 
 # gaps outer 1
 # gaps inner 5
