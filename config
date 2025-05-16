@@ -201,6 +201,7 @@ bindsym $mod+t exec $commands/battery-left
 bindsym $mod+b exec blueman-manager
 bindsym $mod+g exec $commands/gptchat
 bindsym $mod+Tab exec $commands/show-windows
+bindsym $mod+m exec $commands/keypress/run
 
 # Volume
 bindsym $mod+apostrophe exec pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -219,6 +220,8 @@ bindsym $mod+Shift+h exec $commands/fish-history
 bindsym Scroll_Lock exec $commands/lock
 bindsym $mod+l exec $commands/lock
 
+exec --no-startup-id i3-msg 'workspace 2; exec google-chrome-stable'
+exec --no-startup-id i3-msg 'workspace 2; exec slack'
 exec --no-startup-id /usr/bin/octopi-notifier
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id redshift
