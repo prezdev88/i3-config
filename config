@@ -251,3 +251,9 @@ client.background       #ffffff
 # gdu = espacio en disco
 # qps = monitoreo
 # nitrogen = wallpapers app
+
+# xprop | grep WM_CLASS
+# assign [class="Google-chrome"] $ws2
+
+# xprop | grep WM_NAME
+assign [title="web.whatsapp.com"] $ws2
