@@ -231,7 +231,7 @@ exec --no-startup-id picom
 exec --no-startup-id xscreensaver --no-splash
 exec --no-startup-id xinput set-prop "Synaptics TM3471-020" "libinput Natural Scrolling Enabled" 1
 exec --no-startup-id blueman-applet
-exec --no-startup-id ~/start-fusuma.sh
+exec --no-startup-id fusuma
 
 # gaps outer 1
 # gaps inner 5
