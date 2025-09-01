@@ -197,7 +197,7 @@ bindsym $mod+Escape kill
 bindsym $mod+g exec $commands/gptchat
 bindsym $mod+Shift+p exec poweroff
 bindsym $mod+$alt+Shift+p exec reboot
-bindsym Print exec flameshot gui
+bindsym Print exec $commands/fixed-flameshot
 bindsym $mod+plus exec kmag
 bindsym $mod+b exec blueman-manager
 bindsym $mod+m exec --no-startup-id $commands/keypress/run
@@ -229,7 +229,7 @@ bindsym $mod+l exec $commands/lock
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id redshift
 exec --no-startup-id clipit
-exec --no-startup-id flameshot
+# exec --no-startup-id flameshot
 exec --no-startup-id pasystray
 exec --no-startup-id udiskie --tray
 exec --no-startup-id dunst
