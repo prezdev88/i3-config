@@ -176,9 +176,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-
 gaps inner 10
 smart_gaps on
 for_window [class=".*"] border pixel 4
@@ -193,7 +190,7 @@ bindsym $mod+F5 exec thunar
 bindsym $mod+Escape kill
 bindsym $mod+Shift+p exec poweroff
 bindsym $mod+$alt+Shift+p exec reboot
-bindsym Print exec flameshot gui
+bindsym Print exec $commands/fixed-flameshot
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym $mod+plus exec kmag
@@ -227,7 +224,7 @@ exec --no-startup-id /usr/bin/octopi-notifier
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id redshift
 exec --no-startup-id clipit
-exec --no-startup-id flameshot
+# exec --no-startup-id flameshot
 exec --no-startup-id pasystray
 exec --no-startup-id udiskie --tray
 exec --no-startup-id dunst
