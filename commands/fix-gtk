@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Exportar entorno gráfico a systemd --user + D-Bus
+systemctl --user import-environment DISPLAY XAUTHORITY || true
+dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP=i3 XDG_SESSION_TYPE=x11 || true
+
+# Reiniciar portales con el entorno correcto
+systemctl --user restart xdg-desktop-portal-gtk.service xdg-desktop-portal.service || true
