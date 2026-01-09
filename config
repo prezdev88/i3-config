@@ -233,13 +233,14 @@ exec --no-startup-id flameshot
 exec --no-startup-id pasystray
 exec --no-startup-id udiskie --tray
 exec --no-startup-id dunst
-exec --no-startup-id picom
+# exec --no-startup-id picom
 exec --no-startup-id xscreensaver --no-splash
 exec --no-startup-id blueman-applet
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id streamdeck -n
 exec --no-startup-id fusuma
 exec --no-startup-id /usr/bin/octopi-notifier
+exec --no-startup-id ~/fix
 exec_always ~/.config/polybar/launch.sh &
 
 # class                 border  backgr. text    indicator child_border
