@@ -125,3 +125,6 @@ bindsym $mod+F4         exec $commands/youtube
 exec --no-startup-id redshift
 exec_always ~/.config/polybar/launch.sh &
 exec_always --no-startup-id nitrogen --restore
+
+# sudo apt install network-manager-applet
+exec --no-startup-id nm-applet --sm-disable
