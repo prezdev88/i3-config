@@ -99,9 +99,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Fondo de pantalla
-exec_always --no-startup-id nitrogen --restore
-
 # Brillo (sudo ./brightness.sh previamente ejecutado)
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl -c backlight set 5%-
 bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl -c backlight set 5%+
@@ -118,5 +115,7 @@ bindsym $mod+F1 exec chromium
 bindsym $mod+F5 exec nautilus
 bindsym $mod+Return exec cool-retro-term
 
-# Polybar
+# Inicio Automático
+exec --no-startup-id redshift
 exec_always ~/.config/polybar/launch.sh &
+exec_always --no-startup-id nitrogen --restore
