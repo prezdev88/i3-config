@@ -111,9 +111,15 @@ bindsym $mod+Shift+Mod1+p       exec --no-startup-id systemctl reboot
 bindsym $mod+Escape kill
 
 # Programas
-bindsym $mod+F1 exec chromium
-bindsym $mod+F5 exec nautilus
-bindsym $mod+Return exec cool-retro-term
+set $commands ~/.config/i3/commands
+bindsym $mod+F1         exec chromium
+bindsym $mod+F5         exec nautilus
+bindsym $mod+Return     exec cool-retro-term
+bindsym $mod+Shift+d    exec $commands/drun
+bindsym $mod+g          exec $commands/gptchat
+bindsym $mod+Tab        exec $commands/show-windows
+bindsym $mod+F3         exec $commands/ytmusic
+bindsym $mod+F4         exec $commands/youtube
 
 # Inicio Automático
 exec --no-startup-id redshift
