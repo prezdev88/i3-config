@@ -120,11 +120,15 @@ bindsym $mod+g          exec $commands/gptchat
 bindsym $mod+Tab        exec $commands/show-windows
 bindsym $mod+F3         exec $commands/ytmusic
 bindsym $mod+F4         exec $commands/youtube
+bindsym Control+Mod1+h  exec diodon
 
 # Inicio Automático
+# sudo apt install network-manager-applet udiskie pasystray clipit
 exec --no-startup-id redshift
-exec_always ~/.config/polybar/launch.sh &
-exec_always --no-startup-id nitrogen --restore
-
-# sudo apt install network-manager-applet
+exec --no-startup-id flameshot
+exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet --sm-disable
+exec --no-startup-id udiskie --tray
+exec --no-startup-id pasystray
+exec --no-startup-id clipit
+exec_always ~/.config/polybar/launch.sh &
