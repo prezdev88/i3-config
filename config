@@ -123,7 +123,7 @@ bindsym $mod+F4         exec $commands/youtube
 bindsym Control+Mod1+h  exec diodon
 
 # Inicio Automático
-# sudo apt install network-manager-applet udiskie pasystray clipit
+# sudo apt install network-manager-applet udiskie pasystray clipit acpi
 exec --no-startup-id redshift
 exec --no-startup-id flameshot
 exec --no-startup-id nitrogen --restore
