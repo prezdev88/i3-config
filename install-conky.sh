@@ -72,7 +72,7 @@ conky.config = {
 }
 
 conky.text = [[
-\${font OpenSans:size=20}\$alignc\${color Tan1}Arch\${color Ivory} LINUX
+\${alignc}\${font Symbols Nerd Font:size=26}\${color #1793D1}\${font OpenSans:size=20}\${color #1793D1} Arch\${color Ivory}linux
 \${voffset -90}
 \${color DimGray}
 \${font}
