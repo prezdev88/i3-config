@@ -66,6 +66,17 @@ unredir-if-possible = false;
 blur-background = true;
 blur-method = "dual_kawase";
 blur-strength = 1;
+
+shadow-exclude = [
+  "class_g = 'Conky'",
+  "class_g = 'conky'",
+  "name = 'conky'",
+  "_NET_WM_NAME = 'conky'",
+  "window_type = 'dock'",
+  "window_type = 'desktop'",
+  "window_type = 'utility'",
+  "window_type = 'override'"
+];
 EOF
 
 chmod 644 "$HOME/.config/picom.conf"

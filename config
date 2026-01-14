@@ -133,4 +133,6 @@ exec --no-startup-id udiskie --tray
 exec --no-startup-id pasystray
 exec --no-startup-id clipit
 exec --no-startup-id picom --config $HOME/.config/picom.conf
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id bash -lc 'pkill conky; conky -c ~/.config/conky/conky.conf &'
 exec_always --no-startup-id ~/.config/polybar/launch.sh &
