@@ -31,61 +31,95 @@ echo "[4/4] Generando ~/.config/conky/conky.conf ..."
 tmp="$(mktemp)"
 cat > "$tmp" <<'CONF'
 conky.config = {
-  background = true,
-  update_interval = 1,
+  alignment = 'top_right',
+  background = false,
+  border_width = 0.5,
+  cpu_avg_samples = 4,
+  default_color = 'white',
+  default_outline_color = 'grey',
+  default_shade_color = 'black',
+  draw_borders = true,
+  draw_graph_borders = true,
+  draw_outline = false,
+  draw_shades = false,
+  use_xft = true,
+  font = 'OpenSans:size=10',
+  gap_x = 30,
+  gap_y = 60,
+  maximum_width = 300,
+  minimum_height = 5,
+  minimum_width = 5,
+  net_avg_samples = 2,
   double_buffer = true,
-  no_buffers = true,
-
+  out_to_console = false,
+  out_to_stderr = false,
+  extra_newline = false,
   own_window = true,
+  own_window_colour = '000000',
+  own_window_class = 'Conky',
+  own_window_argb_visual = true,
   own_window_type = 'override',
   own_window_transparent = true,
   own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-  own_window_argb_visual = true,
-  own_window_argb_value = 0,
-
-  draw_shades = false,
-  draw_outline = false,
-  draw_borders = false,
-
-  alignment = 'top_right',
-  gap_x = 18,
-  gap_y = 48,
-  minimum_width = 320,
-  maximum_width = 320,
-
-  use_xft = true,
-  font = 'DejaVu Sans:size=10',
-  xftalpha = 1,
-
+  stippled_borders = 0,
+  update_interval = 1,
   uppercase = false,
-  override_utf8_locale = true,
-
-  color1 = 'FFFFFF',
-  color2 = 'A0A0A0',
-  color3 = '7AA2F7',
-};
+  use_spacer = 'none',
+  show_graph_scale = false,
+  show_graph_range = false
+}
 
 conky.text = [[
-${color1}${font DejaVu Sans:bold:size=12}${nodename}${font}${color2}  ${time %H:%M}
-${color2}${hr 1}
+${font OpenSans:size=20}$alignc${color Tan1}Ubuntu${color Ivory} LINUX
+${voffset -90} 
+${color DimGray}
+${font}
+${font OxygenSans:pixelsize=20}$alignc${time %A} ${color white}${time %d}-${color CDE0E7}${time  %b}-${color white}${time %Y}${font}
 
-${color1}CPU${color2}  ${cpu cpu0}%  ${cpubar cpu0 8,170}
-${color2}Freq:${color1} ${freq_g} GHz  ${color2}Load:${color1} ${loadavg}
+${font OpenSans:bold:size=10}${color Tan1}SYSTEM ${color White} ${hr 2}
+$font${color White}$sysname $kernel $alignr $machine
+Frequency $alignr${freq_g cpu0}Ghz
+Uptime $alignr${uptime}
+File System $alignr${fs_type}
 
-${color1}RAM${color2}  ${mem} / ${memmax}  ${membar 8,170}
+${font OpenSans:bold:size=10}${color Tan1}CPU ${color White}${hr 2}
+#$font${color White}Temperature: $alignr ${acpitemp} °C
+$font${color White}Temperature: $alignr ${hwmon 1 temp 1}°C
+$font${color White}CPU1 ${cpu cpu1}% ${cpubar cpu1}
+CPU2 ${cpu cpu2}% ${cpubar cpu2}
+CPU3 ${cpu cpu3}% ${cpubar cpu3}
+CPU4 ${cpu cpu4}% ${cpubar cpu4}
+CPU5 ${cpu cpu5}% ${cpubar cpu5}
+CPU6 ${cpu cpu6}% ${cpubar cpu6}
+CPU7 ${cpu cpu7}% ${cpubar cpu7}
+CPU8 ${cpu cpu8}% ${cpubar cpu8}
+${cpugraph White} $color
+${font OpenSans:bold:size=10}${color Tan1}MEMORY ${color White}${hr 2}
+$font${color White}MEM $alignc $mem / $memmax $alignr $memperc%
+$membar
+$font${color White}SWAP $alignc $swap / $swapmax $alignr $swapperc%
+$swapbar
 
-${color1}DISK${color2} ${fs_used /} / ${fs_size /}  ${fs_bar 8,170 /}
-${color2}Free:${color1} ${fs_free /}
+${font OpenSans:bold:size=10}${color Tan1}HDD ${color White}${hr 2}
+$font${color White}/home $alignc ${fs_used /home} / ${fs_size /home} $alignr ${fs_free_perc /home}%
+${fs_bar /home}
 
-${color1}NET${color2}  ${if_up $default_iface}${color2}IP:${color1} ${addr $default_iface}
-${color2}Down:${color1} ${downspeed $default_iface} ${color2}Up:${color1} ${upspeed $default_iface}
-${color2}${downspeedgraph $default_iface 20,150} ${upspeedgraph $default_iface 20,150}
-${else}${color2}Sin red activa${endif}
+${font OpenSans:bold:size=10}${color Tan1}TOP PROCESSES ${color White}${hr 2}
+${color White}$font${top_mem name 2}${alignr}${top mem 2} %
+$font${top_mem name 3}${alignr}${top mem 3} %
+$font${top_mem name 4}${alignr}${top mem 4} %
+$font${top_mem name 5}${alignr}${top mem 5} %
 
-${color2}${hr 1}
-${color1}TEMP${color2} CPU:${color1} ${execi 5 sensors | awk '/Package id 0|Tctl|CPU Temperature/ {print $4; exit}'}
-${color2}Uptime:${color1} ${uptime}
-]];
+${font OpenSans:bold:size=10}${color Tan2}NETWORK ${color White}${hr 2}
+$font${color White}IP Address: $alignr ${addr wlp1s0}
+${hr 2}
+Down $alignr ${downspeed wlp1s0} kb/s
+Up $alignr ${upspeed wlp1s0} kb/s
+${hr 2}
+Downloaded: $alignr ${totaldown wlp1s0}
+Uploaded: $alignr ${totalup wlp1s0}
+
+]]
 CONF
 
 dest="$HOME/.config/conky/conky.conf"
