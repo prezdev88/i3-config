@@ -241,6 +241,7 @@ exec --no-startup-id streamdeck -n
 exec --no-startup-id fusuma
 exec --no-startup-id /usr/bin/octopi-notifier
 exec --no-startup-id ~/fix
+exec --no-startup-id conky -c ~/.config/conky/conky.conf
 exec_always ~/.config/polybar/launch.sh &
 
 # class                 border  backgr. text    indicator child_border
