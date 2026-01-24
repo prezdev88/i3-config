@@ -233,6 +233,7 @@ exec --no-startup-id xinput set-prop "Synaptics TM3471-020" "libinput Natural Sc
 exec --no-startup-id blueman-applet
 exec --no-startup-id fusuma
 exec --no-startup-id $commands/fix-gtk
+exec --no-startup-id conky -c ~/.config/conky/conky.conf
 
 # gaps outer 1
 # gaps inner 5
