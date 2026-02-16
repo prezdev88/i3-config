@@ -1,35 +1,17 @@
 set $mod Mod4
 set $alt Mod1
 set $commands ~/.config/i3/commands
+set $refresh_i3status killall -SIGUSR1 i3status
 
 font pango:monospace 12
 
-exec --no-startup-id dex --autostart --environment i3
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-exec --no-startup-id nm-applet
-
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
 floating_modifier $mod
-
 tiling_drag modifier titlebar
-
-bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
-bindsym $mod+d exec --no-startup-id dmenu_run
 
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+ntilde move right
 
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
@@ -82,20 +64,11 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
 mode "resize" {
-	bindsym j resize shrink width 10 px or 10 ppt
-	bindsym k resize grow height 10 px or 10 ppt
-	bindsym l resize shrink height 10 px or 10 ppt
-	bindsym ntilde resize grow width 10 px or 10 ppt
-
-	bindsym Left resize shrink width 10 px or 10 ppt
-	bindsym Down resize grow height 10 px or 10 ppt
-	bindsym Up resize shrink height 10 px or 10 ppt
-	bindsym Right resize grow width 10 px or 10 ppt
+	bindsym Left resize shrink width 5 px or 5 ppt
+	bindsym Down resize grow height 5 px or 5 ppt
+	bindsym Up resize shrink height 5 px or 5 ppt
+	bindsym Right resize grow width 5 px or 5 ppt
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
@@ -108,10 +81,17 @@ gaps inner 10
 smart_gaps on
 for_window [class=".*"] border pixel 4
 
+bindsym Print exec $commands/fixed-flameshot
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $mod+i exec $commands/search-projects
 bindsym $mod+n exec mousepad
 bindsym $mod+F1 exec chromium
-bindsym $mod+F2 exec discord
+bindsym $mod+F2 exec code ~/.config/i3/config
 bindsym $mod+F3 exec youtube-music
 bindsym $mod+F4 exec $commands/youtube
 bindsym $mod+F5 exec thunar
@@ -122,22 +102,21 @@ bindsym $mod+Escape kill
 bindsym $mod+g exec $commands/gptchat
 bindsym $mod+Shift+p exec poweroff
 bindsym $mod+$alt+Shift+p exec reboot
-bindsym Print exec $commands/fixed-flameshot
 bindsym $mod+plus exec kmag
 bindsym $mod+b exec blueman-manager
 bindsym $mod+m exec --no-startup-id $commands/keypress/run
 bindsym $mod+Tab exec $commands/show-windows
 bindsym $mod+Shift+w exec google-chrome-stable --app=https://web.whatsapp.com/
-
 bindsym $mod+apostrophe exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym $mod+exclamdown exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-
 bindsym $mod+Delete exec $commands/kill
 bindsym $mod+Shift+d exec $commands/drun
 bindsym $mod+Shift+h exec $commands/fish-history
 bindsym Scroll_Lock exec $commands/lock
 bindsym $mod+l exec $commands/lock
 
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id nm-applet
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id redshift
 exec --no-startup-id clipit
@@ -155,16 +134,8 @@ exec --no-startup-id ~/fix
 exec --no-startup-id conky -c ~/.config/conky/conky.conf
 exec_always --no-startup-id ~/.config/polybar/launch.sh &
 
-# class                 border  backgr. text    indicator child_border
-client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-client.background       #ffffff
+assign [title="web.whatsapp.com"] $ws2
 
 # gdu = espacio en disco
 # qps = monitoreo
 # nitrogen = wallpapers app
-
-assign [title="web.whatsapp.com"] $ws2
