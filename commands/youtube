@@ -1,1 +1,3 @@
-chromium --app=https://youtube.com
+firefox --kiosk https://youtube.com &
+sleep 1
+xdotool key Super+f

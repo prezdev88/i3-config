@@ -133,6 +133,9 @@ exec --no-startup-id /usr/bin/octopi-notifier
 exec --no-startup-id ~/fix
 exec --no-startup-id conky -c ~/.config/conky/conky.conf
 exec_always --no-startup-id ~/.config/polybar/launch.sh &
+exec_always --no-startup-id xrandr --output DP-4 --mode 3440x1440 --rate 74.98
+exec_always --no-startup-id xrandr --output DP-1 --mode 1920x1080 --rate 74.97
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
 assign [title="web.whatsapp.com"] $ws2
 
