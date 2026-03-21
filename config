@@ -112,6 +112,7 @@ bindsym $mod+exclamdown exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym $mod+Delete exec $commands/kill
 bindsym $mod+Shift+d exec $commands/drun
 bindsym $mod+Shift+h exec $commands/fish-history
+bindsym $mod+Shift+y exec --no-startup-id ~/.config/polybar/launch.sh
 bindsym Scroll_Lock exec $commands/lock
 bindsym $mod+l exec $commands/lock
 
