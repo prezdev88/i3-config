@@ -119,7 +119,7 @@ bindsym $mod+l exec $commands/lock
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id redshift
+exec --no-startup-id redshift -c ~/.config/redshift/redshift.conf
 exec --no-startup-id clipit
 exec --no-startup-id flameshot
 exec --no-startup-id pasystray
